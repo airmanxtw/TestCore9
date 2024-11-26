@@ -1,0 +1,123 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "測試.NET9 API",
+    "description": "API for processing checkouts from cart.",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Test": {
+      "get": {
+        "tags": [
+          "這是一個測試用的Controller"
+        ],
+        "description": "Say Hello~",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/Test/Echo/{message}": {
+      "get": {
+        "tags": [
+          "這是一個測試用的Controller"
+        ],
+        "description": "Echo訊息",
+        "parameters": [
+          {
+            "name": "message",
+            "in": "path",
+            "description": "反應訊息",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/Test/Data": {
+      "get": {
+        "tags": [
+          "這是一個測試用的Controller"
+        ],
+        "description": "Bearer認證測試",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Data"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Data": {
+        "required": [
+          "name",
+          "age"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "姓名"
+          },
+          "age": {
+            "type": "integer",
+            "description": "年齡",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "Json Web Token"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "這是一個測試用的Controller"
+    }
+  ]
+}
