@@ -44,6 +44,7 @@ public class Test : Controller
     [Authorize]
     [EndpointDescription("Bearer認證測試")]
     [ProducesResponseType<Models.Data>(StatusCodes.Status200OK, "application/json")]
+    [ProducesResponseType<string>(StatusCodes.Status401Unauthorized, "application/json")]
     public IActionResult GetData()
     {
         return Ok(new Models.Data { Name = "airman", Age = 18 });
