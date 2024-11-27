@@ -1,3 +1,4 @@
+using System.Net;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -127,10 +128,13 @@ internal sealed class BearerSecuritySchemeTransformer(IAuthenticationSchemeProvi
             // Apply it as a requirement for all operations
             foreach (var operation in document.Paths.Values.SelectMany(path => path.Operations))
             {
-                operation.Value.Security.Add(new OpenApiSecurityRequirement
+                if (operation.Value.Responses.Any(v => v.Key == "401"))
                 {
-                    [new OpenApiSecurityScheme { Reference = new OpenApiReference { Id = "Bearer", Type = ReferenceType.SecurityScheme } }] = Array.Empty<string>()
-                });
+                    operation.Value.Security.Add(new OpenApiSecurityRequirement
+                    {
+                        [new OpenApiSecurityScheme { Reference = new OpenApiReference { Id = "Bearer", Type = ReferenceType.SecurityScheme } }] = Array.Empty<string>()
+                    });
+                }
             }
         }
     }
